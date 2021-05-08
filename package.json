@@ -1,0 +1,19 @@
+{
+  "name": "telegram-telegraf-pycrypto-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot using Telegraf and pycryptobot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "telegraf",
+    "pycryptobot"
+  ],
+  "author": "prolez",
+  "license": "Unlicense",
+  "dependencies": {
+    "telegraf": "^3.6.4"
+  },
+  "devDependencies": {}
+}
