@@ -51,11 +51,12 @@ If you're working on this repository with someone else, I suggest to NOT publish
 
 # Documentation
 - Usage:
+```
 /usage
 /list (list all processes)
 /start BTC-GBP 3600 1 ... (start a bot)
 /stop BTC-GBP (stop an instance)
-
+```
 start parameters order: market, granularity, live, sellatloss, verbose
 
 PyCryptoBot: https://github.com/whittlem/pycryptobot
