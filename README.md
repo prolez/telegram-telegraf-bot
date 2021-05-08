@@ -36,8 +36,6 @@ If it prints:
 ```
 ...congratulations! Now bot will do what you want.
 
-![image](http://i.imgur.com/v6fmG6f.png)
-
 ## Secure your API key
 In .gitignore:
 ```
