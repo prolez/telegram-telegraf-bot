@@ -17,7 +17,7 @@ bot.telegram.getMe().then((bot_informations) => {
     console.log("Server has initialized bot nickname. Nick: " + bot_informations.username);
 });
 
-bot.command('help', (ctx) => {
+bot.command('usage', (ctx) => {
     ctx.reply('/list\n/start\n/stop');
 });
 
