@@ -18,22 +18,39 @@ bot.telegram.getMe().then((bot_informations) => {
 });
 
 bot.command('usage', (ctx) => {
-    ctx.reply('/list\n/start\n/stop');
+    ctx.reply('/list (list all processes)\n/start BTC-GBP 3600 1 ... (start a bot)\n/stop BTC-GBP (stop an instance)');
 });
 
 bot.command('start', (ctx) => {
     // Recherche du market
     const market = ctx.update.message.text.split(' ')[1];
-    // Paramètres
-    const params = ctx.update.message.text.split(' ').slice(2);
+    if (!market) {
+        ctx.reply('wrong argument, see usage');
+        return;
+    }
     // Vérification de l'existance
     execCommand('ps -ef | grep pycryptobot | grep ' + market + ' | awk \'{str = sprintf("%s %s", $1, $2)} END {print str}\'').then((result) => {
         if (result.length > 0) {
-            ctx.reply(market + ' already in scope');
+            ctx.reply(market + ' already started');
         } else {
-            // Lancement du bot via les params
-            execCommand('python pycryptobot.py --market ' + market + ' --granularity ' + params[0] + ' --live ' + params[1] + ' --sellatloss ' + params[2]
-                + ' --verbose ' + params[3]).then(() => {
+            // Paramètres (TODO améliorer le mécanisme :D)
+            const params = ctx.update.message.text.split(' ').slice(2);
+            var sb = '';
+            if (params.length > 0) {
+                sb += ' --granularity ' + params[0];
+                if (params.length > 1) {
+                    sb += ' --live ' + params[1];
+                    if (params.length > 2) {
+                        sb += ' --sellatloss ' + params[2];
+                        if (params.length > 3) {
+                            sb += ' --verbose ' + params[3];
+                        }
+                    }
+                }
+            }
+            // Lancement du bot avec les params
+            console.log(sb);
+            execCommand('python pycryptobot.py --market ' + market + sb).then(() => {
             });
         }
     });
@@ -42,9 +59,13 @@ bot.command('start', (ctx) => {
 bot.command('stop', (ctx) => {
     // Recherche du market
     const market = ctx.update.message.text.split(' ')[1];
+    if (!market) {
+        ctx.reply('wrong argument, see usage');
+        return;
+    }
     // Récupération du pid
      execCommand('ps -ef | grep pycryptobot | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
-        execCommand('kill -9 ' + pid).then(() => {
+        execCommand('kill -15 ' + pid).then(() => {
             ctx.reply(market + 'Stopped');
         });
     });

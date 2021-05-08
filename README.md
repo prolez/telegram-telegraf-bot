@@ -1,4 +1,4 @@
-# Add features Telegram Bot for pycryptobot. In Node.JS, using Telegraf
+# Add features Telegram Bot for pycryptobot. In Node.JS, using Telegraf (Linux only)
 
 ## What is this repository about?
 This repository lets you run and configure a Telegram bot, easily, in order to interact with user input and manage data.
