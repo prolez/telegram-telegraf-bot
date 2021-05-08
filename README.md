@@ -1,17 +1,14 @@
 # Add features Telegram Bot for pycryptobot. In Node.JS, using Telegraf (Linux only)
 
 ## What is this repository about?
-This repository lets you run and configure a Telegram bot, easily, in order to interact with user input and manage data.
-It allows you to manage the processes of the pycryptobot bot
+This repository lets you run and configure a Telegram bot, easily, in order to interact with user input.
+It allows you to manage the processes of the pycryptobot bot in Telegram.
 
 ## How to create the bot
 
-### Step 1: create a 'user bot' and connect it with Node.js
+### Step 1: configure pyCryptoBot with Telegram
 - Open Telegram application on your computer;
-- Contact BotFather through Telegram here: https://telegram.me/BotFather. This bot will be used to create your bot;
-- As image suggests, follow those steps:
-![image](http://i.imgur.com/POZq2tq.png)
-- BotFather will provide you an API key. This API key is used to make requests to Telegram API in order to listen messages from your bot user, make bot answer accordingly and much more. Save it for next step.
+https://medium.com/coinmonks/pycryptobot-with-telegram-83eed5f230c2
 
 ### Step 2: configure your Node.js application
 - Create config.js in the repository root with this content. Replace API_TOKEN with the API key you got from BotFather:
@@ -39,8 +36,6 @@ If it prints:
 ```
 ...congratulations! Now bot will do what you want.
 
-![image](http://i.imgur.com/v6fmG6f.png)
-
 ## Secure your API key
 In .gitignore:
 ```
@@ -56,11 +51,12 @@ If you're working on this repository with someone else, I suggest to NOT publish
 
 # Documentation
 - Usage:
+```
 /usage
 /list (list all processes)
 /start BTC-GBP 3600 1 ... (start a bot)
 /stop BTC-GBP (stop an instance)
-
+```
 start parameters order: market, granularity, live, sellatloss, verbose
 
 PyCryptoBot: https://github.com/whittlem/pycryptobot
