@@ -29,7 +29,7 @@ bot.command('start', (ctx) => {
         return;
     }
     // Vérification de l'existance
-    execCommand('ps -ef | grep pycryptobot | grep ' + market + ' | awk \'{str = sprintf("%s %s", $1, $2)} END {print str}\'').then((result) => {
+    execCommand('ps -eaf | grep pycryptobot.py | grep ' + market).then((result) => {
         if (result.length > 0) {
             ctx.reply(market + ' already started');
         } else {
@@ -50,7 +50,7 @@ bot.command('start', (ctx) => {
             }
             // Lancement du bot avec les params
             console.log(sb);
-            execCommand('python pycryptobot.py ' + sb + ' ' + market).then(() => {
+            execCommand('python3 pycryptobot.py ' + sb + ' ' + market).then(() => {
             });
         }
     });
@@ -74,7 +74,9 @@ bot.command('stop', (ctx) => {
 bot.command('list', (ctx) => {
     // Liste les process en cours d'exécution
     execCommand('ps -eaf | grep pycryptobot.py | grep -v grep | awk \'{new_var="/stop "$12; print new_var}\'').then((result) => {
-        ctx.reply(result);
+        if (result) {
+            ctx.reply(result);
+        }
     });
 });
 
