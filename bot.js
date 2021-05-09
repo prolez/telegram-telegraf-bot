@@ -32,24 +32,8 @@ bot.command('start', (ctx) => {
     execCommand('ps -eaf | grep pycryptobot.py | grep -v grep | grep ' + market).then((result) => {
         ctx.reply(market + ' already started');
     }).catch(() => {
-        // Paramètres (TODO améliorer le mécanisme :D)
-        const params = ctx.update.message.text.split(' ').slice(2);
-        var sb = '';
-        if (params.length > 0) {
-            sb += ' --granularity ' + params[0];
-            if (params.length > 1) {
-                sb += ' --live ' + params[1];
-                if (params.length > 2) {
-                    sb += ' --sellatloss ' + params[2];
-                    if (params.length > 3) {
-                        sb += ' --verbose ' + params[3];
-                    }
-                }
-            }
-        }
         // Lancement du bot avec les params
-        console.log(sb);
-        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py ' + sb + ' ' + market);
+        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py --live 1' + market);
     });
 });
 
