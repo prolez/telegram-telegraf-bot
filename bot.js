@@ -73,7 +73,7 @@ bot.command('stop', (ctx) => {
 
 bot.command('list', (ctx) => {
     // Liste les process en cours d'exécution
-    execCommand('ps -eaf | grep pycryptobot.py | grep -v grep | awk \'{print $12}\'').then((result) => {
+    execCommand('ps -eaf | grep pycryptobot.py | grep -v grep | awk \'{new_var="/stop "$12; print new_var}\'').then((result) => {
         ctx.reply(result);
     });
 });
