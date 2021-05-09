@@ -33,7 +33,11 @@ bot.command('start', (ctx) => {
         ctx.reply(market + ' already started');
     }).catch(() => {
         // Lancement du bot avec les params
-        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py --live 1 ' + market);
+        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py --live 1 ' + market).then(() => {
+            console.log(market + 'started');
+        }).catch((er) => {
+            ctx.reply(market + ' stopped');
+        });;
     });
 });
 
@@ -47,10 +51,7 @@ bot.command('stop', (ctx) => {
     // Récupération du pid
     execCommand('ps -eaf | grep pycryptobot.py | grep -v /bin/sh | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
         if (pid) {
-            execCommand('kill -15 ' + pid).then(() => {
-            }).catch(() => {
-                ctx.reply(market + ' stopped');
-            });
+            execCommand('kill -15 ' + pid).then(() => {}).catch(() => {});
         }
     });
 });
