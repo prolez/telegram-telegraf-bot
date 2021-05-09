@@ -50,7 +50,7 @@ bot.command('start', (ctx) => {
             }
             // Lancement du bot avec les params
             console.log(sb);
-            execCommand('python pycryptobot.py --market ' + market + sb).then(() => {
+            execCommand('python pycryptobot.py ' + sb + ' ' + market).then(() => {
             });
         }
     });
@@ -64,7 +64,7 @@ bot.command('stop', (ctx) => {
         return;
     }
     // Récupération du pid
-     execCommand('ps -ef | grep pycryptobot | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
+     execCommand('ps -eaf | grep pycryptobot.py | grep ADAEUR | awk \'{ print $2 }\'').then((pid) => {
         execCommand('kill -15 ' + pid).then(() => {
             ctx.reply(market + 'Stopped');
         });
