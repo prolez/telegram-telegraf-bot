@@ -33,7 +33,7 @@ bot.command('start', (ctx) => {
         ctx.reply(market + ' already started');
     }).catch(() => {
         // Lancement du bot avec les params
-        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py --live 1' + market);
+        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py --live 1 ' + market);
     });
 });
 
