@@ -50,7 +50,7 @@ bot.command('start', (ctx) => {
             }
             // Lancement du bot avec les params
             console.log(sb);
-            execCommand('python3 pycryptobot.py ' + sb + ' ' + market).then(() => {
+            execCommand('python3 pycryptobot.py ' + sb + ' ' + market).then((result) => {
             });
         }
     });
@@ -65,7 +65,7 @@ bot.command('stop', (ctx) => {
     }
     // Récupération du pid
      execCommand('ps -eaf | grep pycryptobot.py | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
-        execCommand('kill -15 ' + pid).then(() => {
+        execCommand('kill -15 ' + pid).then((result) => {
             ctx.reply(market + 'Stopped');
         });
     });
@@ -79,10 +79,6 @@ bot.command('list', (ctx) => {
         }
     });
 });
-
-function forProcessDescription(process) {
-    return '';
-}
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
