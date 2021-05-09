@@ -29,30 +29,27 @@ bot.command('start', (ctx) => {
         return;
     }
     // Vérification de l'existance
-    execCommand('ps -eaf | grep pycryptobot.py | grep ' + market).then((result) => {
-        if (result.length > 0) {
-            ctx.reply(market + ' already started');
-        } else {
-            // Paramètres (TODO améliorer le mécanisme :D)
-            const params = ctx.update.message.text.split(' ').slice(2);
-            var sb = '';
-            if (params.length > 0) {
-                sb += ' --granularity ' + params[0];
-                if (params.length > 1) {
-                    sb += ' --live ' + params[1];
-                    if (params.length > 2) {
-                        sb += ' --sellatloss ' + params[2];
-                        if (params.length > 3) {
-                            sb += ' --verbose ' + params[3];
-                        }
+    execCommand('ps -eaf | grep pycryptobot.py | grep -v grep | grep ' + market).then((result) => {
+        ctx.reply(market + ' already started');
+    }).catch(() => {
+        // Paramètres (TODO améliorer le mécanisme :D)
+        const params = ctx.update.message.text.split(' ').slice(2);
+        var sb = '';
+        if (params.length > 0) {
+            sb += ' --granularity ' + params[0];
+            if (params.length > 1) {
+                sb += ' --live ' + params[1];
+                if (params.length > 2) {
+                    sb += ' --sellatloss ' + params[2];
+                    if (params.length > 3) {
+                        sb += ' --verbose ' + params[3];
                     }
                 }
             }
-            // Lancement du bot avec les params
-            console.log(sb);
-            execCommand('python3 pycryptobot.py ' + sb + ' ' + market).then((result) => {
-            });
         }
+        // Lancement du bot avec les params
+        console.log(sb);
+        execCommand('cd ' + market + ';' + 'python3 pycryptobot.py ' + sb + ' ' + market);
     });
 });
 
@@ -64,10 +61,13 @@ bot.command('stop', (ctx) => {
         return;
     }
     // Récupération du pid
-     execCommand('ps -eaf | grep pycryptobot.py | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
-        execCommand('kill -15 ' + pid).then((result) => {
-            ctx.reply(market + 'Stopped');
-        });
+    execCommand('ps -eaf | grep pycryptobot.py | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
+        if (pid) {
+            execCommand('kill -15 ' + pid).then(() => {
+            }).catch(() => {
+                ctx.reply(market + 'Stopped');
+            });
+        }
     });
 });
 
