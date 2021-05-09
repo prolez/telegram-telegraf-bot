@@ -45,11 +45,11 @@ bot.command('stop', (ctx) => {
         return;
     }
     // Récupération du pid
-    execCommand('ps -eaf | grep pycryptobot.py | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
+    execCommand('ps -eaf | grep pycryptobot.py | grep -v /bin/sh | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
         if (pid) {
             execCommand('kill -15 ' + pid).then(() => {
             }).catch(() => {
-                ctx.reply(market + 'Stopped');
+                ctx.reply(market + ' stopped');
             });
         }
     });
