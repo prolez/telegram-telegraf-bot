@@ -64,7 +64,7 @@ bot.command('stop', (ctx) => {
         return;
     }
     // Récupération du pid
-     execCommand('ps -eaf | grep pycryptobot.py | grep ADAEUR | awk \'{ print $2 }\'').then((pid) => {
+     execCommand('ps -eaf | grep pycryptobot.py | grep ' + market + ' | awk \'{ print $2 }\'').then((pid) => {
         execCommand('kill -15 ' + pid).then(() => {
             ctx.reply(market + 'Stopped');
         });
