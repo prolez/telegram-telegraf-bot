@@ -18,7 +18,13 @@ bot.telegram.getMe().then((bot_informations) => {
 });
 
 bot.command('usage', (ctx) => {
-    ctx.reply('/list (list all processes)\n/start BTC-GBP 3600 1 ... (start a bot)\n/stop BTC-GBP (stop an instance)');
+    ctx.reply('/list (list all processes)\n/maj\n/start BTC-GBP 3600 1 ... (start a bot)\n/stop BTC-GBP (stop an instance)');
+});
+
+bot.command('maj',  (ctx) => {
+    execCommand('update-pycryptobots.sh').then(() => {
+        ctx.reply('Maj ok');
+    })
 });
 
 bot.command('start', (ctx) => {
