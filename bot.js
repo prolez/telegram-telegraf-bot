@@ -22,7 +22,7 @@ bot.command('usage', (ctx) => {
 });
 
 bot.command('maj',  (ctx) => {
-    execCommand('update-pycryptobots.sh').then(() => {
+    execCommand('./update-pycryptobots.sh').then(() => {
         ctx.reply('Maj ok');
     })
 });
